@@ -4,14 +4,19 @@ import org.newdawn.slick.SlickException;
 
 public class PlayerShip {
 	private Image playerShip;
-	private int HP;
 	private int x;
 	private int y;
+	private int HP;
+	private int laserLevel;
+	private int laserShoot;
 	
 	public PlayerShip(int x, int y) throws SlickException {
 		playerShip = new Image("res/ship.png");
 		this.x = x;
 	    this.y = y;
+	    HP = 100;
+	    laserLevel = 1;
+	    laserShoot = 0;
 	}
 	
 	public void draw() {
@@ -19,12 +24,26 @@ public class PlayerShip {
 	}
 
 	public void moveLeft() {
-		// TODO Auto-generated method stub
 		this.x--;
 	}
 
 	public void moveRight() {
-		// TODO Auto-generated method stub
 		this.x++;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getLaserLevel() {
+		return laserLevel;
+	}
+	
+	public int getLaserShoot() {
+		return laserShoot;
 	}
 }
