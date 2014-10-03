@@ -7,8 +7,8 @@ public class PlayerShip {
 	private int x;
 	private int y;
 	private int HP;
-	private int laserLevel;
-	private int laserShoot;
+	public int laserLevel;
+	public int laserShoot;
 	
 	public PlayerShip(int x, int y) throws SlickException {
 		playerShip = new Image("res/ship.png");

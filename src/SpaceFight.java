@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 public class SpaceFight extends BasicGame{
 	
 	private PlayerShip player;
+	private PlayerLaser laser;
+	Boolean shoot;
 
 	public SpaceFight(String title) {
 		super(title);
@@ -16,20 +18,32 @@ public class SpaceFight extends BasicGame{
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		player.draw();
+		if(shoot) {
+			laser.draw();
+		}
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		player = new PlayerShip(420,500);
+		shoot = false;
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		Input input = container.getInput();
 	    updateShipMovement(input, delta);
+	    if(shoot) {
+	    	if(!laser.outOfScreen())
+	    		updateLaserMovement();
+	    	else {
+	    		player.laserShoot--;
+	    		shoot = false;
+	    	}
+	    }
 	}
 
-	private void updateShipMovement(Input input, int delta) {
+	private void updateShipMovement(Input input, int delta) throws SlickException {
 		if (input.isKeyDown(Input.KEY_LEFT)) { 
 	    	player.moveLeft();
 	    }
@@ -38,7 +52,16 @@ public class SpaceFight extends BasicGame{
 	    }
 	    if (input.isKeyDown(Input.KEY_SPACE)) {
 	    	System.out.println("Shoot!");
+	    	if(player.getLaserShoot() < player.getLaserLevel()) {
+	    		player.laserShoot++;
+	    		laser = new PlayerLaser(player.getX(), player.getY());
+	    		shoot = true;
+	    	}
 	    }
+	}
+	
+	private void updateLaserMovement() {
+		laser.update();
 	}
 
 	public static void main(String[] args) {
