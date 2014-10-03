@@ -9,6 +9,7 @@ public class SpaceFight extends BasicGame{
 	
 	private PlayerShip player;
 	private PlayerLaser laser;
+	private EnemyShip enemy;
 	Boolean shoot;
 
 	public SpaceFight(String title) {
@@ -18,6 +19,7 @@ public class SpaceFight extends BasicGame{
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		player.draw();
+		enemy.draw();
 		if(shoot) {
 			laser.draw();
 		}
@@ -26,6 +28,7 @@ public class SpaceFight extends BasicGame{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		player = new PlayerShip(420,500);
+		enemy = new EnemyShip();
 		shoot = false;
 	}
 
@@ -33,14 +36,8 @@ public class SpaceFight extends BasicGame{
 	public void update(GameContainer container, int delta) throws SlickException {
 		Input input = container.getInput();
 	    updateShipMovement(input, delta);
-	    if(shoot) {
-	    	if(!laser.outOfScreen())
-	    		updateLaserMovement();
-	    	else {
-	    		player.laserShoot--;
-	    		shoot = false;
-	    	}
-	    }
+		updateLaserMovement();
+		updateEnemyMovement();
 	}
 
 	private void updateShipMovement(Input input, int delta) throws SlickException {
@@ -61,7 +58,18 @@ public class SpaceFight extends BasicGame{
 	}
 	
 	private void updateLaserMovement() {
-		laser.update();
+		if(shoot) {
+	    	if(!laser.outOfScreen())
+	    		laser.update();
+	    	else {
+	    		player.laserShoot--;
+	    		shoot = false;
+	    	}
+	    }
+	}
+	
+	private void updateEnemyMovement() {
+		enemy.update();
 	}
 
 	public static void main(String[] args) {
