@@ -52,9 +52,9 @@ public class SpaceFight extends BasicGame{
 //		System.out.println("Enemy " + enemyX + " " + enemyY + " " + "Laser " + laserX + " " + laserY);
 		
 		if(laserY <= enemyY && laserY+50 >= enemyY) {
-//			System.out.println("CollisionY");
-			if(laserX-5 >= enemyX && laserX-60 <= enemyX) {	
-//				System.out.println("Collision");
+			System.out.println("CollisionY");
+			if(laserX >= enemyX && laserX-60 <= enemyX) {	
+				System.out.println("Collision");
 				enemy.randomPosition();
 				laser.remove();
 				player.laserShoot--;
