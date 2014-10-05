@@ -24,6 +24,7 @@ public class SpaceFight extends BasicGame{
 		if(shoot) {
 			laser.draw();
 		}
+		g.drawString("Score : " + score, 700, 0);
 	}
 
 	@Override
