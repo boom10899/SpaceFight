@@ -26,4 +26,16 @@ public class PlayerLaser {
 		else return false;
 	}
 
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+
+	public void remove() {
+		x = 800;
+		y = 600;
+	}
 }

@@ -20,8 +20,13 @@ public class EnemyShip {
 	public void randomPosition() {
 		Random random = new Random();
 		int randomX = 51 + random.nextInt(700);
-		x = 420;
+		x = randomX;
 		y = 0;
+	}
+	
+	public boolean outOfScreen() {
+		if(y > 600) return true;
+		else return false;
 	}
 	
 	public void draw() {
@@ -29,6 +34,14 @@ public class EnemyShip {
 	}
 	
 	public void update() {
-		y = y+10;
+		y = y+1;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
 	}
 }

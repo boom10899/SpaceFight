@@ -24,11 +24,11 @@ public class PlayerShip {
 	}
 
 	public void moveLeft() {
-		this.x--;
+		this.x -= 5;
 	}
 
 	public void moveRight() {
-		this.x++;
+		this.x += 5;
 	}
 	
 	public int getX() {

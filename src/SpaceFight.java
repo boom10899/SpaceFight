@@ -11,6 +11,7 @@ public class SpaceFight extends BasicGame{
 	private PlayerLaser laser;
 	private EnemyShip enemy;
 	Boolean shoot;
+	int score;
 
 	public SpaceFight(String title) {
 		super(title);
@@ -30,6 +31,7 @@ public class SpaceFight extends BasicGame{
 		player = new PlayerShip(420,500);
 		enemy = new EnemyShip();
 		shoot = false;
+		score = 0;
 	}
 
 	@Override
@@ -38,6 +40,28 @@ public class SpaceFight extends BasicGame{
 	    updateShipMovement(input, delta);
 		updateLaserMovement();
 		updateEnemyMovement();
+		if(shoot) checkCollision();
+	}
+
+	private void checkCollision() {
+		int enemyX = enemy.getX();
+		int enemyY = enemy.getY();
+		int laserX = laser.getX();
+		int laserY = laser.getY();
+		
+//		System.out.println("Enemy " + enemyX + " " + enemyY + " " + "Laser " + laserX + " " + laserY);
+		
+		if(laserY <= enemyY && laserY+50 >= enemyY) {
+//			System.out.println("CollisionY");
+			if(laserX-5 >= enemyX && laserX-60 <= enemyX) {	
+//				System.out.println("Collision");
+				enemy.randomPosition();
+				laser.remove();
+				player.laserShoot--;
+	    		shoot = false;
+				score++;
+			}	
+		}
 	}
 
 	private void updateShipMovement(Input input, int delta) throws SlickException {
@@ -48,10 +72,9 @@ public class SpaceFight extends BasicGame{
 	    	player.moveRight();
 	    }
 	    if (input.isKeyDown(Input.KEY_SPACE)) {
-	    	System.out.println("Shoot!");
 	    	if(player.getLaserShoot() < player.getLaserLevel()) {
 	    		player.laserShoot++;
-	    		laser = new PlayerLaser(player.getX(), player.getY());
+	    		laser = new PlayerLaser(player.getX()+25, player.getY());
 	    		shoot = true;
 	    	}
 	    }
@@ -69,7 +92,11 @@ public class SpaceFight extends BasicGame{
 	}
 	
 	private void updateEnemyMovement() {
-		enemy.update();
+		if(!enemy.outOfScreen())
+			enemy.update();
+		else {
+			enemy.randomPosition();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -77,6 +104,7 @@ public class SpaceFight extends BasicGame{
 			SpaceFight game = new SpaceFight("Space Fight");
 			AppGameContainer container = new AppGameContainer(game);
 			container.setDisplayMode(800, 600, false);
+			container.setMinimumLogicUpdateInterval(1000 / 60);
 			container.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
