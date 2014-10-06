@@ -12,6 +12,8 @@ public class SpaceFight extends BasicGame{
 	private EnemyShip enemy;
 	Boolean shoot;
 	int score;
+	int gameLevel;
+	Boolean isGameOver;
 
 	public SpaceFight(String title) {
 		super(title);
@@ -33,6 +35,8 @@ public class SpaceFight extends BasicGame{
 		enemy = new EnemyShip();
 		shoot = false;
 		score = 0;
+		gameLevel = 1;
+		isGameOver = false;
 	}
 
 	@Override
@@ -53,9 +57,9 @@ public class SpaceFight extends BasicGame{
 //		System.out.println("Enemy " + enemyX + " " + enemyY + " " + "Laser " + laserX + " " + laserY);
 		
 		if(laserY <= enemyY && laserY+50 >= enemyY) {
-			System.out.println("CollisionY");
+//			System.out.println("CollisionY");
 			if(laserX >= enemyX && laserX-60 <= enemyX) {	
-				System.out.println("Collision");
+//				System.out.println("Collision");
 				enemy.randomPosition();
 				laser.remove();
 				player.laserShoot--;
