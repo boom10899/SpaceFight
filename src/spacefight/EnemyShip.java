@@ -1,3 +1,4 @@
+package spacefight;
 import java.util.Random;
 
 import org.newdawn.slick.Image;
