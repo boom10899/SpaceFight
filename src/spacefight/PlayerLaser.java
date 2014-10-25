@@ -17,6 +17,11 @@ public class PlayerLaser {
 	public void draw() {
 	    playerLaser.draw(x, y);
 	}
+	
+	public void setLaser(int x, int y) throws SlickException {
+		this.x = x;
+	    this.y = y;
+	}
 
 	public void update() {
 		y = y-10;

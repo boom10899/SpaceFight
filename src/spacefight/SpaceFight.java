@@ -9,9 +9,9 @@ import org.newdawn.slick.SlickException;
 public class SpaceFight extends BasicGame{
 	
 	private PlayerShip player;
-	private PlayerLaser laser;
+	private PlayerLaser[] laser;
 	private EnemyShip enemy;
-	Boolean shoot;
+	int[] shoot;
 	int score;
 	int gameLevel;
 	Boolean isGameOver;
@@ -24,8 +24,10 @@ public class SpaceFight extends BasicGame{
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		player.draw();
 		enemy.draw();
-		if(shoot) {
-			laser.draw();
+		for(int i = 0; i < player.getLaserLevel(); i++) {
+			if(shoot[i] == 1) {
+				laser[i].draw();
+			}
 		}
 		g.drawString("Score : " + score, 700, 0);
 	}
@@ -34,7 +36,11 @@ public class SpaceFight extends BasicGame{
 	public void init(GameContainer container) throws SlickException {
 		player = new PlayerShip(420,500);
 		enemy = new EnemyShip();
-		shoot = false;
+		laser = new PlayerLaser[100];
+		shoot = new int[100];
+		for(int i = 0; i < player.getLaserLevel(); i++) {
+			shoot[i] = 0;
+		}
 		score = 0;
 		gameLevel = 1;
 		isGameOver = false;
@@ -45,15 +51,19 @@ public class SpaceFight extends BasicGame{
 		Input input = container.getInput();
 	    updateShipMovement(input, delta);
 		updateLaserMovement();
-		updateEnemyMovement();
-		if(shoot) checkCollision();
+//		updateEnemyMovement();
+		for(int i = 0; i < player.getLaserLevel(); i++) {
+			if(shoot[i] == 1) {
+//				 checkCollision(i);
+			}
+		}
 	}
 
-	private void checkCollision() {
+	private void checkCollision(int i) {
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
-		int laserX = laser.getX();
-		int laserY = laser.getY();
+		int laserX = laser[i].getX();
+		int laserY = laser[i].getY();
 		
 //		System.out.println("Enemy " + enemyX + " " + enemyY + " " + "Laser " + laserX + " " + laserY);
 		
@@ -62,9 +72,9 @@ public class SpaceFight extends BasicGame{
 			if(laserX >= enemyX && laserX-60 <= enemyX) {	
 //				System.out.println("Collision");
 				enemy.randomPosition();
-				laser.remove();
+				laser[i].remove();
 				player.laserShoot--;
-	    		shoot = false;
+	    		shoot[i] = 0;
 				score++;
 			}	
 		}
@@ -79,20 +89,27 @@ public class SpaceFight extends BasicGame{
 	    }
 	    if (input.isKeyDown(Input.KEY_SPACE)) {
 	    	if(player.getLaserShoot() < player.getLaserLevel()) {
-	    		player.laserShoot++;
-	    		laser = new PlayerLaser(player.getX()+25, player.getY());
-	    		shoot = true;
+	    		for(int i = 0; i < player.getLaserLevel(); i++) {
+	    			if(shoot[i] == 0) {
+	    				player.laserShoot++;
+	    				laser[i] = new PlayerLaser(player.getX()+25, player.getY());
+	    				shoot[i] = 1;
+	    				break;
+	    			}
+	    		}
 	    	}
 	    }
 	}
 	
 	private void updateLaserMovement() {
-		if(shoot) {
-	    	if(!laser.outOfScreen())
-	    		laser.update();
-	    	else {
-	    		player.laserShoot--;
-	    		shoot = false;
+		for(int i = 0; i < player.getLaserLevel(); i++) {
+			if(shoot[i] == 1) {
+				if(!laser[i].outOfScreen())
+					laser[i].update();
+				else {
+					player.laserShoot--;
+					shoot[i] = 0;
+				}
 	    	}
 	    }
 	}

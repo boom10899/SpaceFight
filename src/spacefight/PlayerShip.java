@@ -16,7 +16,7 @@ public class PlayerShip {
 		this.x = x;
 	    this.y = y;
 	    HP = 100;
-	    laserLevel = 1;
+	    laserLevel = 5;
 	    laserShoot = 0;
 	}
 	
