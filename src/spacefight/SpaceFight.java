@@ -46,7 +46,7 @@ public class SpaceFight extends BasicGame{
 		player = new PlayerShip(420,500);
 		
 		enemy = new EnemyShip[50];
-		enemyCount = gameLevel/5 + 1;
+		enemyCount = gameLevel/3 + 1;
 		for(int i = 0; i < enemyCount; i++) {
 			enemy[i] = new EnemyShip();
 		}
@@ -73,6 +73,27 @@ public class SpaceFight extends BasicGame{
 				}
 			}
 		}
+		updateGameLevel();
+	}
+
+	private void updateGameLevel() throws SlickException {
+		if(score > gameLevel*gameLevel) {
+			gameLevel++;
+			
+			for(int j = 0; j < enemyCount; j++) {
+				enemy[j].speed = gameLevel/5 + 1;
+			}
+			
+			player.laserLevel = gameLevel/5 + 1;
+			
+			checkNewEnemy();
+		}
+	}
+
+	private void checkNewEnemy() throws SlickException {
+		int newEnemyCount = gameLevel/3 + 1;
+		if(newEnemyCount > enemyCount)
+			enemy[enemyCount] = new EnemyShip();
 	}
 
 	private void checkCollision(int i, int j) {

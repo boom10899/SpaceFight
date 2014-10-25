@@ -9,6 +9,7 @@ public class EnemyShip {
 	private Image enemyShip;
 	private int x;
 	private int y;
+	public int speed;
 	private int HP;
 	public int laserLevel;
 	public int laserShoot;
@@ -23,6 +24,7 @@ public class EnemyShip {
 		int randomX = 51 + random.nextInt(700);
 		x = randomX;
 		y = 0;
+		speed = 1;
 	}
 	
 	public boolean outOfScreen() {
@@ -35,7 +37,7 @@ public class EnemyShip {
 	}
 	
 	public void update() {
-		y = y+1;
+		y = y + speed;
 	}
 	
 	public int getX() {
