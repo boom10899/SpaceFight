@@ -36,8 +36,8 @@ public class SpaceFight extends BasicGame{
 			}
 			g.drawString("HP : " + player.HP, 100, 10);
 			g.drawString("Laser : " + player.laserLevel, 200, 10);
-			g.drawString("Level : " + gameLevel, 550, 10);
-			g.drawString("Score : " + score, 680, 10);
+			g.drawString("Level : " + gameLevel, 450, 10);
+			g.drawString("Score : " + score, 600, 10);
 		}
 		else if(isGameOver) {
 			g.drawString("Game Over", 400, 300);
@@ -52,7 +52,7 @@ public class SpaceFight extends BasicGame{
 		
 		player = new PlayerShip(420,500);
 		
-		enemy = new EnemyShip[50];
+		enemy = new EnemyShip[100];
 		enemyCount = gameLevel/3 + 1;
 		for(int j = 0; j < enemyCount; j++) {
 			enemy[j] = new EnemyShip();
@@ -85,11 +85,14 @@ public class SpaceFight extends BasicGame{
 
 	private void updateGameLevel() throws SlickException {
 		if(score > gameLevel*gameLevel) {
-			gameLevel++;
-			player.laserLevel = gameLevel/3 + 1;
-			if(gameLevel % 5 == 0)
+			if(gameLevel < 100)
+				gameLevel++;
+			if(player.laserLevel < 10)
+				player.laserLevel = gameLevel/3 + 1;
+			if(gameLevel % 10 == 0)
 				player.HP++;
-			checkNewEnemy();
+			if(enemyCount < 100)
+				checkNewEnemy();
 		}
 	}
 
