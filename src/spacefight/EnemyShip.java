@@ -10,9 +10,6 @@ public class EnemyShip {
 	private int x;
 	private int y;
 	public int speed;
-	private int HP;
-	public int laserLevel;
-	public int laserShoot;
 	
 	public EnemyShip() throws SlickException {
 		enemyShip = new Image("res/ShipEnemy.png");

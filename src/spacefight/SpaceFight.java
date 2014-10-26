@@ -87,17 +87,17 @@ public class SpaceFight extends BasicGame{
 		if(score > gameLevel*gameLevel) {
 			gameLevel++;
 			player.laserLevel = gameLevel/3 + 1;
+			if(gameLevel % 5 == 0)
+				player.HP++;
 			checkNewEnemy();
 		}
 	}
 
 	private void checkNewEnemy() throws SlickException {
-		System.out.println("checkNewEnemy");
 		int newEnemyCount = gameLevel;
 		if(newEnemyCount > enemyCount) {
 			enemy[enemyCount] = new EnemyShip();
 			enemyCount++;
-			System.out.println("createNewEnemy");
 		}
 	}
 
@@ -107,12 +107,8 @@ public class SpaceFight extends BasicGame{
 		int laserX = laser[i].getX();
 		int laserY = laser[i].getY();
 		
-//		System.out.println("Enemy " + enemyX + " " + enemyY + " " + "Laser " + laserX + " " + laserY);
-		
 		if(laserY <= enemyY && laserY+50 >= enemyY) {
-//			System.out.println("CollisionY");
 			if(laserX >= enemyX && laserX-60 <= enemyX) {	
-//				System.out.println("Collision");
 				enemy[j].randomPosition();
 				laser[i].remove();
 	    		shoot[i] = 0;
