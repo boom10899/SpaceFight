@@ -7,7 +7,7 @@ public class PlayerShip {
 	private Image playerShip;
 	private int x;
 	private int y;
-	private int HP;
+	public int HP;
 	public int laserLevel;
 	public int laserShoot;
 	
@@ -15,8 +15,8 @@ public class PlayerShip {
 		playerShip = new Image("res/ship.png");
 		this.x = x;
 	    this.y = y;
-	    HP = 100;
-	    laserLevel = 5;
+	    HP = 3;
+	    laserLevel = 1;
 	    laserShoot = 0;
 	}
 	
