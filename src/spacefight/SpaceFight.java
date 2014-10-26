@@ -26,8 +26,8 @@ public class SpaceFight extends BasicGame{
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		if(!isGameOver) {
 			player.draw();
-			for(int i = 0; i < enemyCount; i++) {
-				enemy[i].draw();
+			for(int j = 0; j < enemyCount; j++) {
+				enemy[j].draw();
 			}
 			for(int i = 0; i < player.getLaserLevel(); i++) {
 				if(shoot[i] == 1) {
@@ -54,8 +54,8 @@ public class SpaceFight extends BasicGame{
 		
 		enemy = new EnemyShip[50];
 		enemyCount = gameLevel/3 + 1;
-		for(int i = 0; i < enemyCount; i++) {
-			enemy[i] = new EnemyShip();
+		for(int j = 0; j < enemyCount; j++) {
+			enemy[j] = new EnemyShip();
 		}
 		
 		laser = new PlayerLaser[10];
@@ -70,8 +70,8 @@ public class SpaceFight extends BasicGame{
 		Input input = container.getInput();
 	    updateShipMovement(input, delta);
 		updateLaserMovement();
-		for(int i = 0; i < enemyCount; i++) {
-			updateEnemyMovement(i);
+		for(int j = 0; j < enemyCount; j++) {
+			updateEnemyMovement(j);
 		}
 		for(int i = 0; i < player.getLaserLevel(); i++) {
 			for(int j = 0; j < enemyCount; j++) {
@@ -129,7 +129,6 @@ public class SpaceFight extends BasicGame{
 	    	player.moveRight();
 	    }
 	    if (input.isKeyDown(Input.KEY_SPACE)) {
-	    	System.out.println("Press");
 	    	if(player.getLaserShoot() < player.getLaserLevel()) {
 	    		for(int i = 0; i < player.getLaserLevel(); i++) {
 	    			if(shoot[i] == 0) {

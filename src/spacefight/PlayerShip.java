@@ -12,7 +12,7 @@ public class PlayerShip {
 	public int laserShoot;
 	
 	public PlayerShip(int x, int y) throws SlickException {
-		playerShip = new Image("res/ship.png");
+		playerShip = new Image("res/ShipPlayer.png");
 		this.x = x;
 	    this.y = y;
 	    HP = 3;

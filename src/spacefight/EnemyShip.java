@@ -15,7 +15,7 @@ public class EnemyShip {
 	public int laserShoot;
 	
 	public EnemyShip() throws SlickException {
-		enemyShip = new Image("res/ship2.png");
+		enemyShip = new Image("res/ShipEnemy.png");
 		randomPosition();
 	}
 	
